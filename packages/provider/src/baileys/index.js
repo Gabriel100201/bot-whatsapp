@@ -75,6 +75,14 @@ class BaileysProvider extends ProviderClass {
                 syncFullHistory: false,
                 generateHighQualityLinkPreview: true,
                 getMessage: this.getMessage,
+                connectTimeoutMs: 60000,
+                defaultQueryTimeoutMs: undefined,
+                keepAliveIntervalMs: 10000,
+                emitOwnEvents: true,
+                fireInitQueries: true,
+                generateHighQualityLinkPreview: true,
+                syncFullHistory: true,
+                markOnlineOnConnect: true
             })
 
             this.store?.bind(sock.ev)
@@ -102,6 +110,7 @@ class BaileysProvider extends ProviderClass {
             }
 
             sock.ev.on('connection.update', async (update) => {
+                console.log("CONNECTION UPDATE: ", update)
                 const { connection, lastDisconnect, qr } = update
 
                 const statusCode = lastDisconnect?.error?.output?.statusCode
